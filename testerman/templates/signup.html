@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | Product Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { background: #f6d365; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
+        .container { max-width: 400px; margin: 60px auto; background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(60,60,60,0.15); padding: 32px 24px; }
+        h2 { color: #f76b1c; text-align: center; }
+        form { display: flex; flex-direction: column; gap: 1em; }
+        input { padding: 0.8em; border: 1px solid #ddd; border-radius: 6px; font-size: 1em; }
+        button { background: #f76b1c; color: #fff; border: none; padding: 0.8em; border-radius: 6px; font-size: 1em; font-weight: bold; cursor: pointer; }
+        button:hover { background: #ff9a44; }
+        .link { text-align: center; margin-top: 1em; }
+        .link a { color: #f76b1c; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Account</h2>
+        <form id="signup-form">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="link">
+            Already have an account? <a href="/login/">Login</a>
+        </div>
+        <div id="signup-message" style="text-align:center;color:#f76b1c;margin-top:1em;"></div>
+    </div>
+    <script>
+        document.getElementById('signup-form').onsubmit = async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const res = await fetch('/api/signup/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+            const data = await res.json();
+            if (res.ok) {
+                document.getElementById('signup-message').innerText = "Signup successful! You can now log in.";
+            } else {
+                document.getElementById('signup-message').innerText = data.username ? data.username[0] : "Signup failed.";
+            }
+        }
+    </script>
+</body>
+</html>
