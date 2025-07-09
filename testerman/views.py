@@ -56,4 +56,6 @@ def login_page(request):
 
 @login_required(login_url='/login/')
 def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('login_page')
     return render(request, 'dashboard.html')
