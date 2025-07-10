@@ -4,7 +4,7 @@ const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
 
 gulp.task('build', () => {
-  return gulp.src('src/app/page.tsx')
+  return gulp.src('src/app/page.jsx')
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest('dist/'));
 });
