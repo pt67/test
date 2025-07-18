@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm start",
-    "build": "gulp build",
-    "start": "next start",
+    "dev": "node api.js && npm start",
+    "build": "node api.js && gulp build",
+    "start": "node api.js && next start",
     "lint": "next lint",
     "compile": "webpack --mode production",
     "watch": "webpack --watch"
   },
   "dependencies": {
-    "next": "15.3.5"
+    "next": "15.3.5",
+    "react-router": "^6.30.1",
+    "react-router-dom": "^7.6.3"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
