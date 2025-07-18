@@ -3,7 +3,7 @@ from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from .models import Product
@@ -34,6 +34,7 @@ class LoginView(ObtainAuthToken):
         login(request, user)
         return Response({'token': token.key, 'user': UserSerializer(user).data})
 
+
 # Product CRUD endpoints
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -42,6 +43,15 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+ # Product add endpoint
+class ProductAddView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)       
 
 def homepage(request):
     return render(request, 'homepage.html')
@@ -54,8 +64,19 @@ def login_page(request):
         return redirect('dashboard')
     return render(request, 'login.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('login_page')
+
 @login_required(login_url='/login/')
 def dashboard(request):
+    #fetch username in dashboard
+    username = request.user.username
+    products = Product.objects.filter(owner=request.user)
+    context = {
+        'username': username,
+        'products': products
+    }
     if not request.user.is_authenticated:
         return redirect('login_page')
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html' , context)
