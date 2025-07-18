@@ -1,0 +1,41 @@
+ .dash-container { 
+    max-width: 700px; 
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(60,60,60,0.15);
+    padding: 40px 32px;
+   
+     }
+
+        h1 { color: #f76b1c; margin-bottom: 0.5em; font-size: 2.5em; }
+        p { color: #444; font-size: 1.2em; margin-bottom: 2em; }
+        .actions { display: flex; gap: 1em; }
+        .actions a { text-decoration: none; background: #f76b1c; color: #fff; padding: 0.8em 2em; border-radius: 8px; font-weight: bold; transition: background 0.2s; }
+        .actions a:hover { background: #ff9a44; }
+
+
+.module-form{
+    position: fixed;
+    top: 2%;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 700px; 
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(60,60,60,0.15);
+    padding: 40px 32px;
+}
+
+ .module-btn{
+    margin-top: 20px;
+ } 
+ 
+ .module-form textarea{
+    height: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+ }
